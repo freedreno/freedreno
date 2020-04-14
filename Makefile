@@ -15,36 +15,63 @@ TESTS_2D = \
 	test-multi
 
 TESTS_3D = \
-	test-varyings \
-	test-quad-attributeless \
-	test-float-int \
-	test-query \
-	test-draw \
-	test-clear \
-	test-es2gears \
-	test-piglit-bad \
-	test-piglit-good \
+	test-advanced-blend \
+	test-bandwidth \
+	test-blend-fbo \
 	test-caps \
-	test-stencil \
-	test-mipmap \
-	test-cubemap \
-	test-compiler \
-	test-enable-disable \
-	test-quad-flat \
-	test-quad-flat2 \
-	test-quad-textured \
-	test-quad-textured-3d \
-	test-quad-flat-fbo \
-	test-strip-smoothed \
 	test-cat \
+	test-clear \
+	test-clear-fbo \
+	test-compiler \
+	test-compute \
 	test-cube \
 	test-cube-textured \
-	test-tex \
-	test-vertex \
-	test-triangle-smoothed \
-	test-triangle-quad \
+	test-cubemap \
+	test-draw \
+	test-draw-indirect \
+	test-enable-disable \
+	test-es2gears \
+	test-float-int \
+	test-frag-depth \
+	test-image \
 	test-instanced \
-	test-tf
+	test-int-varyings \
+	test-layout-2d-array \
+	test-limits \
+	test-lrz \
+	test-mip-fbo \
+	test-mipmap \
+	test-mrt-fbo \
+	test-msaa \
+	test-noattach-fbo \
+	test-perf \
+	test-piglit-bad \
+	test-piglit-good \
+	test-quad-attributeless \
+	test-quad-flat \
+	test-quad-flat2 \
+	test-quad-flat-fbo \
+	test-quad-textured \
+	test-quad-textured2 \
+	test-quad-textured-3d \
+	test-query \
+	test-restore-resolve \
+	test-sampshad \
+	test-shader-runner \
+	test-shader-size \
+	test-srgb-fbo \
+	test-ssbo \
+	test-stencil \
+	test-strip-smoothed \
+	test-tex \
+	test-tex-fbo \
+	test-tex-layout \
+	test-tf \
+	test-triangle-quad \
+	test-triangle-smoothed \
+	test-ubwc \
+	test-varyings \
+	test-vertex
 
 TESTS_CL = \
 	test-simple \
