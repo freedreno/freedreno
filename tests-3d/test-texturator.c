@@ -156,6 +156,7 @@ enum type {
 	UINT16,
 	SINT32,
 	UINT32,
+	UNORM10_A2,
 	// TODO add oddballs
 };
 
@@ -264,6 +265,13 @@ static void * encode_UNSIGNED_INT(void *buf, int ncomp, int w, int h, int level,
 	return ptr;
 }
 
+static void * encode_UNSIGNED_INT_2_10_10_10_REV(void *buf, int ncomp, int w, int h, int level, int slice)
+{
+	memset(buf, 0, w * h * 4);
+	buf = (char *)buf + w * h * 4;
+	return buf;
+}
+
 static struct type_info {
 	const char *unpack;
 	const char *convert;
@@ -284,6 +292,7 @@ static struct type_info {
 	STYPE(UINT16, "val",                 UNSIGNED_SHORT),
 	STYPE(SINT32, "val + 127",           INT),
 	STYPE(UINT32, "val",                 UNSIGNED_INT),
+	STYPE(UNORM10_A2, "val",             UNSIGNED_INT_2_10_10_10_REV),
 };
 
 static const struct fmt {
@@ -312,7 +321,7 @@ static const struct fmt {
 	FMT(RGBA8,         GL_RGBA,          UNORM ),
 //	FMT(RGB5_A1,       GL_RGBA,          UINT5551),
 //	FMT(RGBA4,         GL_RGBA,          UINT4444),
-//	FMT(RGB10_A2,      GL_RGBA,          UINT10A2),
+	FMT(RGB10_A2,      GL_RGBA,          UNORM10_A2),
 	FMT(RGBA8UI,       GL_RGBA_INTEGER,  UINT8 ),
 	FMT(RGBA8I,        GL_RGBA_INTEGER,  SINT8 ),
 	FMT(RGBA16UI,      GL_RGBA_INTEGER,  UINT16),
@@ -623,6 +632,12 @@ static bool check_quads(void)
 	const int pad = 2;
 	float y = pad;
 	bool err = false;
+
+	/* We don't actually set up this format. */
+	if (fmt->ifmt == GL_RGB10_A2) {
+		printf("note: format not supported for probing\n");
+		return false;
+	}
 
 	/* draw quads for each level/slice: */
 	for (int m = 0; m < miplevels; m++) {
