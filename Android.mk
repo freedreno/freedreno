@@ -572,8 +572,10 @@ LOCAL_LDLIBS := -lc -ldl -llog -lm
 include $(BUILD_EXECUTABLE)
 
 #
-# CL Test Apps:
+# CL Test Apps for db820c.  Requires a local copy of the vendor image,
+# so disabled by default.
 #
+ifeq (0,1)
 
 include $(CLEAR_VARS)
 # TODO this needs to be diff for 32 vs 64 bit
@@ -607,3 +609,5 @@ LOCAL_CFLAGS := -DBIONIC
 LOCAL_LDLIBS := -lc -lc++ -ldl -llog -lm
 LOCAL_LDLIBS := $(P)/vendor/lib64/libOpenCL.so -rpath $(P)/vendor/lib64 -rpath $(P)/lib64
 include $(BUILD_EXECUTABLE)
+
+endif
