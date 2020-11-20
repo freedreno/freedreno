@@ -321,15 +321,12 @@ uint64_t alloc_gpuaddr(uint32_t size)
 #endif
 
 /*****************************************************************************/
-static int install_fd(const char *path, int fd)
+static void install_fd(const char *path, int fd)
 {
 	assert(fd < ARRAY_SIZE(file_table));
 	if (!strcmp(path, "/dev/kgsl-3d0")) {
 #ifdef FAKE
-		if (!(wrap_gpu_id() && wrap_gmem_size())) {
-			printf("need WRAP_GPU_ID/WRAP_GMEM_SIZE!\n");
-			return -1;
-		}
+		assert(wrap_gpu_id() && wrap_gmem_size());
 		if ((wrap_gpu_id() >= 500) && !env2u("WRAP_FORCE_32B"))
 			is64b = 1;
 		file_table[fd].is_emulated = 1;
@@ -345,8 +342,6 @@ static int install_fd(const char *path, int fd)
 	} else if (strstr(path, "/dev/")) {
 		printf("#### missing device, path: %s: %d\n", path, fd);
 	}
-
-	return fd;
 }
 
 int open(const char* path, int flags, ...)
@@ -384,7 +379,7 @@ int open(const char* path, int flags, ...)
 	LOCK();
 
 	if (ret != -1) {
-		ret = install_fd(path, ret);
+		install_fd(path, ret);
 	}
 
 	UNLOCK();
@@ -427,7 +422,7 @@ int openat(int dirfd, const char *path, int flags, ...)
 	LOCK();
 
 	if (ret != -1) {
-		ret = install_fd(path, ret);
+		install_fd(path, ret);
 	}
 
 	UNLOCK();
@@ -465,7 +460,7 @@ int __openat(int dirfd, const char *path, int flags, int mode)
 	LOCK();
 
 	if (ret != -1) {
-		ret = install_fd(path, ret);
+		install_fd(path, ret);
 	}
 
 	UNLOCK();
@@ -1355,9 +1350,7 @@ int ioctl(int fd, int request, ...)
 		ret = readlink(path, buf, sizeof(buf));
 		if (ret > 0) {
 			buf[ret] = '\0';
-			ret = install_fd(buf, fd);
-			if (ret)
-				return ret;
+			install_fd(buf, fd);
 		}
 	}
 
