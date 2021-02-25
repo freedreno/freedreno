@@ -87,6 +87,7 @@ LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv3
 include $(BUILD_EXECUTABLE)
 
+ifneq ($(TARGET_PLATFORM),android-23)
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-compute
 LOCAL_SRC_FILES := tests-3d/test-compute.c
@@ -94,6 +95,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/includes $(LOCAL_PATH)/util
 LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv3
 include $(BUILD_EXECUTABLE)
+endif
 
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-cube
@@ -127,6 +129,7 @@ LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv2
 include $(BUILD_EXECUTABLE)
 
+ifneq ($(TARGET_PLATFORM),android-23)
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-draw-indirect
 LOCAL_SRC_FILES := tests-3d/test-draw-indirect.c
@@ -134,6 +137,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/includes $(LOCAL_PATH)/util
 LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv3
 include $(BUILD_EXECUTABLE)
+endif
 
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-enable-disable
@@ -431,6 +435,7 @@ LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv2
 include $(BUILD_EXECUTABLE)
 
+ifneq ($(TARGET_PLATFORM),android-23)
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-tex-msaa
 LOCAL_SRC_FILES := tests-3d/test-tex-msaa.c
@@ -438,6 +443,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/includes $(LOCAL_PATH)/util
 LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv3
 include $(BUILD_EXECUTABLE)
+endif
 
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-texturator
