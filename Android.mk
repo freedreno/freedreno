@@ -87,6 +87,7 @@ LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv3
 include $(BUILD_EXECUTABLE)
 
+ifneq ($(TARGET_PLATFORM),android-23)
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-compute
 LOCAL_SRC_FILES := tests-3d/test-compute.c
@@ -94,6 +95,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/includes $(LOCAL_PATH)/util
 LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv3
 include $(BUILD_EXECUTABLE)
+endif
 
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-cube
@@ -127,6 +129,7 @@ LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv2
 include $(BUILD_EXECUTABLE)
 
+ifneq ($(TARGET_PLATFORM),android-23)
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-draw-indirect
 LOCAL_SRC_FILES := tests-3d/test-draw-indirect.c
@@ -134,6 +137,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/includes $(LOCAL_PATH)/util
 LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv3
 include $(BUILD_EXECUTABLE)
+endif
 
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-enable-disable
@@ -431,9 +435,19 @@ LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv2
 include $(BUILD_EXECUTABLE)
 
+ifneq ($(TARGET_PLATFORM),android-23)
 include $(CLEAR_VARS)
 LOCAL_MODULE    := test-tex-msaa
 LOCAL_SRC_FILES := tests-3d/test-tex-msaa.c
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/includes $(LOCAL_PATH)/util
+LOCAL_CFLAGS := -DBIONIC -std=c99
+LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv3
+include $(BUILD_EXECUTABLE)
+endif
+
+include $(CLEAR_VARS)
+LOCAL_MODULE    := test-texturator
+LOCAL_SRC_FILES := tests-3d/test-texturator.c
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/includes $(LOCAL_PATH)/util
 LOCAL_CFLAGS := -DBIONIC -std=c99
 LOCAL_LDLIBS := -llog -lc -ldl -lEGL -lGLESv3
@@ -564,8 +578,10 @@ LOCAL_LDLIBS := -lc -ldl -llog -lm
 include $(BUILD_EXECUTABLE)
 
 #
-# CL Test Apps:
+# CL Test Apps for db820c.  Requires a local copy of the vendor image,
+# so disabled by default.
 #
+ifeq (0,1)
 
 include $(CLEAR_VARS)
 # TODO this needs to be diff for 32 vs 64 bit
@@ -599,3 +615,5 @@ LOCAL_CFLAGS := -DBIONIC
 LOCAL_LDLIBS := -lc -lc++ -ldl -llog -lm
 LOCAL_LDLIBS := $(P)/vendor/lib64/libOpenCL.so -rpath $(P)/vendor/lib64 -rpath $(P)/lib64
 include $(BUILD_EXECUTABLE)
+
+endif

@@ -69,6 +69,7 @@ TESTS_3D = \
 	test-tf \
 	test-triangle-quad \
 	test-triangle-smoothed \
+	test-ubo \
 	test-ubwc \
 	test-varyings \
 	test-vertex
